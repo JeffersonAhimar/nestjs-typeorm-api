@@ -9,7 +9,14 @@ import { RolesModule } from './roles/roles.module';
 import { UsersRolesModule } from './users-roles/users-roles.module';
 
 @Module({
-  imports: [ConfigurationModule, DatabaseModule, UsersModule, PostsModule, RolesModule, UsersRolesModule],
+  imports: [
+    ConfigurationModule,
+    DatabaseModule,
+    UsersModule,
+    PostsModule,
+    RolesModule,
+    UsersRolesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

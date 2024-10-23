@@ -24,5 +24,6 @@ import configuration from 'src/configuration/configuration';
       },
     }),
   ],
+  // exports: [TypeOrmModule],
 })
 export class DatabaseModule {}
