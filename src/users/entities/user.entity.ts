@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import { Post } from './../../posts/entities/post.entity';
 import { UserRole } from '../../users-roles/entities/user-role.entity';
@@ -22,6 +23,7 @@ export class User {
   @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
+  @Exclude()
   @Column({ type: 'varchar', length: 255 })
   password: string; // encrypted
 
@@ -33,6 +35,7 @@ export class User {
   // }
 
   @Index() // selected frequently
+  @Exclude()
   @Column({
     name: 'refresh_token',
     type: 'varchar',
@@ -55,9 +58,11 @@ export class User {
   usersRoles: UserRole[];
 
   // timestamps
+  @Exclude()
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
+  @Exclude()
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
