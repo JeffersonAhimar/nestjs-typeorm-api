@@ -1,6 +1,7 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
@@ -27,6 +28,24 @@ async function bootstrap() {
     app.get(JwtAuthGuard), // authentication for all controllers - @Public() to pass
     app.get(RolesGuard), // RBAC: role-based access control - @Roles()
   );
+
+  // openApi (swagger) config
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('NestJS TypeORM API')
+    .setDescription('@JeffersonAhimar')
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        in: 'header',
+      },
+      'accessToken',
+    )
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('docs', app, document);
 
   // app port
   await app.listen(3000);

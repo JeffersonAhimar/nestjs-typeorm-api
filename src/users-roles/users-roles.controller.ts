@@ -1,8 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
 import { UsersRolesService } from './users-roles.service';
 import { CreateUserRoleDto } from './dto/create-user-role.dto';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 
+@ApiBearerAuth('accessToken')
+@ApiTags('users-roles')
 @Controller('users-roles')
 export class UsersRolesController {
   constructor(private readonly usersRolesService: UsersRolesService) {}
@@ -23,7 +35,10 @@ export class UsersRolesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserRoleDto: UpdateUserRoleDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserRoleDto: UpdateUserRoleDto,
+  ) {
     return this.usersRolesService.update(+id, updateUserRoleDto);
   }
 
