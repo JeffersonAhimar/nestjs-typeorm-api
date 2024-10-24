@@ -1,6 +1,7 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,11 @@ async function bootstrap() {
 
   // global interceptors
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector))); // to transform data before return, e.g. @exclude
+
+  // global guards (executed in order from left to right) JwtAuthGuard -> ...
+  app.useGlobalGuards(
+    app.get(JwtAuthGuard), // authentication for all controllers - @Public() to pass
+  );
 
   // app port
   await app.listen(3000);

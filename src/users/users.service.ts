@@ -34,6 +34,25 @@ export class UsersService {
     return user;
   }
 
+  async findOneWithRoles(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['usersRoles', 'usersRoles.role'],
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
+  findByEmail(email: string) {
+    const user = this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
     const finalUpdateUserDto = { ...updateUserDto };
@@ -47,5 +66,17 @@ export class UsersService {
   async remove(id: number) {
     const user = await this.findOne(id);
     return this.userRepository.remove(user);
+  }
+
+  async updateRefreshToken(id: number, refreshToken: string | null) {
+    const user = await this.findOne(id);
+
+    const hashedRefreshToken = refreshToken
+      ? await argon2.hash(refreshToken)
+      : null;
+
+    // return this.userRepository.update({ id }, { refreshToken: hashedRefreshToken });
+    this.userRepository.merge(user, { refreshToken: hashedRefreshToken });
+    return this.userRepository.save(user);
   }
 }
