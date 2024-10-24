@@ -1,12 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RoleEnum } from 'src/common/enums/role.enum';
 
+@Roles(RoleEnum.ADMIN)
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  // @Roles(RoleEnum.ADMIN, RoleEnum.CUSTOMER) // overwrites the roles specified on the top
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);

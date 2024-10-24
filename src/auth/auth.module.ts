@@ -13,6 +13,7 @@ import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -38,8 +39,9 @@ import { UsersModule } from 'src/users/users.module';
     JwtAuthGuard,
     JwtRefreshStrategy,
     JwtRefreshAuthGuard,
+    RolesGuard,
   ],
   controllers: [AuthController],
-  exports: [JwtAuthGuard],
+  exports: [JwtAuthGuard, RolesGuard],
 })
 export class AuthModule {}

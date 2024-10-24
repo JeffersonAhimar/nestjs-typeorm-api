@@ -1,7 +1,9 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,6 +25,7 @@ async function bootstrap() {
   // global guards (executed in order from left to right) JwtAuthGuard -> ...
   app.useGlobalGuards(
     app.get(JwtAuthGuard), // authentication for all controllers - @Public() to pass
+    app.get(RolesGuard), // RBAC: role-based access control - @Roles()
   );
 
   // app port
