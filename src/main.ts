@@ -5,6 +5,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { Mysql1451ExceptionFilter } from './common/filters/mysql-1451-exception.filter';
+import { Mysql1062ExceptionFilter } from './common/filters/mysql-1062-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,6 +29,13 @@ async function bootstrap() {
   app.useGlobalGuards(
     app.get(JwtAuthGuard), // authentication for all controllers - @Public() to pass
     app.get(RolesGuard), // RBAC: role-based access control - @Roles()
+  );
+
+  // global filters
+  // app.useGlobalFilters(new TypeormExceptionFilter());
+  app.useGlobalFilters(
+    new Mysql1451ExceptionFilter(),
+    new Mysql1062ExceptionFilter(),
   );
 
   // openApi (swagger) config
