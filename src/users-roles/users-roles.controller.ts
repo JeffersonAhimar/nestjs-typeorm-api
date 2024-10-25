@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -30,20 +31,25 @@ export class UsersRolesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersRolesService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersRolesService.findOne(id);
+  }
+
+  @Get(':id/details')
+  findOneWithDetails(@Param('id', ParseIntPipe) id: number) {
+    return this.usersRolesService.findOneWithDetails(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateUserRoleDto: UpdateUserRoleDto,
   ) {
-    return this.usersRolesService.update(+id, updateUserRoleDto);
+    return this.usersRolesService.update(id, updateUserRoleDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersRolesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.usersRolesService.remove(id);
   }
 }

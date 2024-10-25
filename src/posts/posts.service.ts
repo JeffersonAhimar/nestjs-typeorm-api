@@ -1,26 +1,66 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.entity';
+
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class PostsService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  constructor(
+    @InjectRepository(Post) private postRepository: Repository<Post>,
+    private usersService: UsersService,
+  ) {}
+
+  async create(createPostDto: CreatePostDto) {
+    const newPost = this.postRepository.create(createPostDto);
+
+    if (createPostDto.userId) {
+      await this.usersService.findOne(createPostDto.userId);
+    }
+
+    return this.postRepository.save(newPost);
   }
 
   findAll() {
-    return `This action returns all posts`;
+    return this.postRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number) {
+    const post = await this.postRepository.findOne({ where: { id } });
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+    return post;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async findOneWithDetails(id: number) {
+    const post = await this.postRepository.findOne({
+      where: { id },
+      relations: ['user'],
+    });
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+    return post;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async update(id: number, updatePostDto: UpdatePostDto) {
+    const post = await this.findOne(id);
+
+    if (updatePostDto.userId) {
+      await this.usersService.findOne(updatePostDto.userId);
+    }
+
+    this.postRepository.merge(post, updatePostDto);
+    return this.postRepository.save(post);
+  }
+
+  async remove(id: number) {
+    const post = await this.findOne(id);
+    return this.postRepository.remove(post);
   }
 }
