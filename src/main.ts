@@ -7,6 +7,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Mysql1451ExceptionFilter } from './common/filters/mysql-1451-exception.filter';
 import { Mysql1062ExceptionFilter } from './common/filters/mysql-1062-exception.filter';
+import configuration from './configuration/configuration';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -57,6 +58,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   // app port
-  await app.listen(3000);
+  const configService = app.get(configuration.KEY);
+  await app.listen(configService.port);
 }
 bootstrap();
