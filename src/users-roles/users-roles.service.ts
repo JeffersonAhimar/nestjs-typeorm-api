@@ -7,7 +7,7 @@ import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { UserRole } from './entities/user-role.entity';
 
 import { UsersService } from 'src/users/users.service';
-import { RolesService } from 'src/roles/roles.service';
+import { RolesService } from 'src/roles/v1/roles.service';
 
 @Injectable()
 export class UsersRolesService {

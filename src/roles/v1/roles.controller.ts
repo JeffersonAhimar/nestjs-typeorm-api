@@ -7,16 +7,17 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  VERSION_NEUTRAL,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { RolesService } from './roles.service';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { CreateRoleDto } from '../dto/create-role.dto';
+import { UpdateRoleDto } from '../dto/update-role.dto';
 
 @ApiBearerAuth('accessToken')
-@ApiTags('roles')
-@Controller('roles')
+@ApiTags('roles-v1')
+@Controller({ path: 'roles', version: VERSION_NEUTRAL }) // version: '1'
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 

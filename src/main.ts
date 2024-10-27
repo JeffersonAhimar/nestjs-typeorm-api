@@ -1,6 +1,10 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
@@ -38,6 +42,11 @@ async function bootstrap() {
     new Mysql1451ExceptionFilter(),
     new Mysql1062ExceptionFilter(),
   );
+
+  // versioning /v1 /v2 ...
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 
   // openApi (swagger) config
   const swaggerConfig = new DocumentBuilder()
