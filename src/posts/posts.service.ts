@@ -7,6 +7,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 
 import { UsersService } from 'src/users/users.service';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Injectable()
 export class PostsService {
@@ -25,8 +26,11 @@ export class PostsService {
     return this.postRepository.save(newPost);
   }
 
-  findAll() {
-    return this.postRepository.find();
+  findAll(paginationDto: PaginationDto) {
+    return this.postRepository.find({
+      skip: paginationDto.skip,
+      take: paginationDto.take,
+    });
   }
 
   async findOne(id: number) {

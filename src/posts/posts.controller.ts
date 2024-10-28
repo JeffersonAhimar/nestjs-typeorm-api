@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -16,6 +17,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RoleEnum } from 'src/common/enums/role.enum';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Roles(RoleEnum.ADMIN)
 @ApiBearerAuth('accessToken')
@@ -31,8 +33,8 @@ export class PostsController {
   }
 
   @Get()
-  findAll() {
-    return this.postsService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.postsService.findAll(paginationDto);
   }
 
   @Get(':id')
