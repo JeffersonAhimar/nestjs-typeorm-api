@@ -64,3 +64,5 @@ mysql_data/
 # environment files
 .env.prod
 .env.test
+
+uploads/
