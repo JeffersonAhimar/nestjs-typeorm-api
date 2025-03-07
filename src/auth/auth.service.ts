@@ -40,6 +40,10 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
+    if (!user || !user.password) {
+      return null;
+    }
+
     const isMatch = await argon2.verify(user.password, password);
     if (!isMatch) {
       return null;

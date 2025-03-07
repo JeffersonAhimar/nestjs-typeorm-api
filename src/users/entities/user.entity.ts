@@ -27,6 +27,12 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   password: string; // encrypted
 
+  @Column({ type: 'varchar', length: 20, unique: true })
+  identityNumber: string;
+
+  @Column({ type: 'date' })
+  dateOfBirth: Date;
+
   // @BeforeInsert()
   // @BeforeUpdate()
   // async hashPassword() {
