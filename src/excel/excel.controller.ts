@@ -22,7 +22,7 @@ export class ExcelController {
   @HttpCode(HttpStatus.CREATED)
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('file'))
-  bulkUploadUsers(@UploadedFile() file: Express.Multer.File) {
-    return this.excelService.bulkUploadUsers(file);
+  handleBulkUserUpload(@UploadedFile() file: Express.Multer.File) {
+    return this.excelService.handleBulkUserUpload(file);
   }
 }

@@ -7,7 +7,7 @@ import { UsersService } from 'src/users/users.service';
 @Injectable()
 export class ExcelService {
   constructor(private usersService: UsersService) {}
-  async bulkUploadUsers(file: Express.Multer.File) {
+  async handleBulkUserUpload(file: Express.Multer.File) {
     if (!file) {
       throw new Error('No file uploaded');
     }
@@ -60,7 +60,6 @@ export class ExcelService {
         })),
       };
     }
-
     return {
       statusCode: HttpStatus.CREATED,
       message: 'All users were created successfully',
