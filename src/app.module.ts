@@ -10,6 +10,7 @@ import { UsersRolesModule } from './users-roles/users-roles.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { ExcelModule } from './excel/excel.module';
+import { PdfModule } from './pdf/pdf.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ExcelModule } from './excel/excel.module';
     AuthModule,
     FilesModule,
     ExcelModule,
+    PdfModule,
   ],
   controllers: [AppController],
   providers: [AppService],
