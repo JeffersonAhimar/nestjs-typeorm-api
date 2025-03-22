@@ -18,5 +18,10 @@ export const envSchema = z.object({
   JWT_EXPIRATION: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   JWT_REFRESH_EXPIRATION: z.string(),
+  // mail
+  MAIL_HOST: z.string(),
+  MAIL_USER: z.string(),
+  MAIL_PASSWORD: z.string(),
+  MAIL_FROM: z.string().email('MAIL_FROM must be a valid email'),
 });
 export type Env = z.infer<typeof envSchema>;

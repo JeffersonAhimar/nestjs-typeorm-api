@@ -17,5 +17,11 @@ export default registerAs('config', () => {
       refreshSecret: process.env.JWT_REFRESH_SECRET,
       refreshExpiration: process.env.JWT_REFRESH_EXPIRATION,
     },
+    mail: {
+      host: process.env.MAIL_HOST,
+      user: process.env.MAIL_USER,
+      password: process.env.MAIL_PASSWORD,
+      from: process.env.MAIL_FROM,
+    },
   };
 });

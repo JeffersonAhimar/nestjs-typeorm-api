@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { ExcelModule } from './excel/excel.module';
 import { PdfModule } from './pdf/pdf.module';
+import { MailsModule } from './mails/mails.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PdfModule } from './pdf/pdf.module';
     FilesModule,
     ExcelModule,
     PdfModule,
+    MailsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
