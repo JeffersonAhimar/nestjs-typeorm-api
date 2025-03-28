@@ -7,6 +7,7 @@ import configuration from 'src/configuration/configuration';
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { PayloadToken } from './interfaces/token.interface';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -66,6 +67,12 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async validateGoogleUser(googleUser: CreateUserDto) {
+    const user = await this.usersService.findByEmail(googleUser.email);
+    if (user) return user;
+    return await this.usersService.create(googleUser);
   }
 
   // jwt tokens - start

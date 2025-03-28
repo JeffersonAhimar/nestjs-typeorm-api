@@ -23,5 +23,9 @@ export const envSchema = z.object({
   MAIL_USER: z.string(),
   MAIL_PASSWORD: z.string(),
   MAIL_FROM: z.string().email('MAIL_FROM must be a valid email'),
+  // google OAuth
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_CALLBACK_URL: z.string(),
 });
 export type Env = z.infer<typeof envSchema>;

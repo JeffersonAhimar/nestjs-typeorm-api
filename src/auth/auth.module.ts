@@ -8,12 +8,12 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
-import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
 
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { RolesGuard } from './guards/roles.guard';
+import { GoogleStrategy } from './strategies/google.strategy';
 
 @Module({
   imports: [
@@ -38,8 +38,8 @@ import { RolesGuard } from './guards/roles.guard';
     JwtStrategy,
     JwtAuthGuard,
     JwtRefreshStrategy,
-    JwtRefreshAuthGuard,
     RolesGuard,
+    GoogleStrategy,
   ],
   controllers: [AuthController],
   exports: [JwtAuthGuard, RolesGuard],

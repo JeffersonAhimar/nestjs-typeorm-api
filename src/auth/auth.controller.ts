@@ -5,6 +5,9 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Get,
+  Res,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -14,6 +17,7 @@ import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
 
 import { AuthService } from './auth.service';
 import { User } from 'src/users/entities/user.entity';
+import { GoogleAuthGuard } from './guards/google-auth.guard';
 
 // JwtAuthGuard: Public -> RolesGuard: Roles -> ...
 @ApiBearerAuth('accessToken')
@@ -48,5 +52,18 @@ export class AuthController {
   async logout(@Request() req) {
     const user = req.user as User;
     return this.authService.logout(user.id);
+  }
+
+  @UseGuards(GoogleAuthGuard)
+  @Public()
+  @Get('google/login')
+  googleLogin() {}
+
+  @UseGuards(GoogleAuthGuard)
+  @Public()
+  @Get('google/callback')
+  async googleCallback(@Req() req, @Res() res) {
+    const response = await this.authService.login(req.user);
+    res.redirect(`http://localhost:5173?token=${response.accessToken}`);
   }
 }

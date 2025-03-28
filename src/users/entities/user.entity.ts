@@ -27,11 +27,14 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   password: string; // encrypted
 
-  @Column({ type: 'varchar', length: 20, unique: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   identityNumber: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   dateOfBirth: Date;
+
+  @Column({ type: 'varchar', length: 500, nullable: true })
+  avatarUrl: string;
 
   // @BeforeInsert()
   // @BeforeUpdate()
