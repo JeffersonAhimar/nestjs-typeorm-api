@@ -22,7 +22,10 @@ export class UsersService {
     return this.userRepository.save(newUser);
   }
 
-  findAll() {
+  findAll(includeDeleted = false) {
+    if (includeDeleted) {
+      return this.userRepository.find({ withDeleted: true });
+    }
     return this.userRepository.find();
   }
 
@@ -78,5 +81,14 @@ export class UsersService {
     // return this.userRepository.update({ id }, { refreshToken: hashedRefreshToken });
     this.userRepository.merge(user, { refreshToken: hashedRefreshToken });
     return this.userRepository.save(user);
+  }
+
+  async softRemove(id: number) {
+    const user = await this.findOne(id); // doesn't find soft deleted rows
+    return this.userRepository.softRemove(user);
+  }
+
+  restore(id: number) {
+    return this.userRepository.restore({ id: id });
   }
 }

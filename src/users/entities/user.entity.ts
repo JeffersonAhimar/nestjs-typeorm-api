@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   Index,
   OneToMany,
@@ -27,13 +28,18 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   password: string; // encrypted
 
-  @Column({ type: 'varchar', length: 20, nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 20,
+    nullable: true,
+    name: 'identity_number',
+  })
   identityNumber: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'date', nullable: true, name: 'date_of_birth' })
   dateOfBirth: Date;
 
-  @Column({ type: 'varchar', length: 500, nullable: true })
+  @Column({ type: 'varchar', length: 500, nullable: true, name: 'avatar_url' })
   avatarUrl: string;
 
   // @BeforeInsert()
@@ -67,6 +73,9 @@ export class User {
   usersRoles: UserRole[];
 
   // timestamps
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt?: Date;
+
   @Exclude()
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -29,8 +31,8 @@ export class UsersController {
 
   @Public()
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query('withDeleted', ParseBoolPipe) withDeleted?: boolean) {
+    return this.usersService.findAll(withDeleted);
   }
 
   @Public()
@@ -46,6 +48,18 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.usersService.update(id, updateUserDto);
+  }
+
+  @Public()
+  @Post(':id/restore')
+  restore(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.restore(id);
+  }
+
+  @Public()
+  @Delete('/softRemove/:id')
+  softRemove(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.softRemove(id);
   }
 
   @Public()
