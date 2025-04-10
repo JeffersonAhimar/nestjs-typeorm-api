@@ -28,5 +28,9 @@ export default registerAs('config', () => {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
     },
+    throttler: {
+      shortTTL: parseInt(process.env.THROTTLER_SHORT_TTL),
+      shortLIMIT: parseInt(process.env.THROTTLER_SHORT_LIMIT),
+    },
   };
 });

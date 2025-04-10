@@ -12,6 +12,7 @@ import { RolesGuard } from './auth/guards/roles.guard';
 import { Mysql1451ExceptionFilter } from './common/filters/mysql-1451-exception.filter';
 import { Mysql1062ExceptionFilter } from './common/filters/mysql-1062-exception.filter';
 import configuration from './configuration/configuration';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,6 +33,7 @@ async function bootstrap() {
 
   // global guards (executed in order from left to right) JwtAuthGuard -> ...
   app.useGlobalGuards(
+    app.get(ThrottlerGuard), // rate limiting
     app.get(JwtAuthGuard), // authentication for all controllers - @Public() to pass
     app.get(RolesGuard), // RBAC: role-based access control - @Roles()
   );

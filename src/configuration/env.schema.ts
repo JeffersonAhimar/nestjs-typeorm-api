@@ -27,5 +27,8 @@ export const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_CALLBACK_URL: z.string(),
+  // rate limiting
+  THROTTLER_SHORT_TTL: z.coerce.number(),
+  THROTTLER_SHORT_LIMIT: z.coerce.number(),
 });
 export type Env = z.infer<typeof envSchema>;

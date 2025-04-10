@@ -16,9 +16,11 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { SkipThrottle, Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth('accessToken')
 @ApiTags('users')
+@SkipThrottle()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -29,6 +31,8 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @SkipThrottle({ default: false })
+  @Throttle({ default: { limit: 5, ttl: 10000 } })
   @Public()
   @Get()
   findAll(@Query('withDeleted', ParseBoolPipe) withDeleted?: boolean) {

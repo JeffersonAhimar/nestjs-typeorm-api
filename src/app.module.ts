@@ -12,6 +12,9 @@ import { FilesModule } from './files/files.module';
 import { ExcelModule } from './excel/excel.module';
 import { PdfModule } from './pdf/pdf.module';
 import { MailsModule } from './mails/mails.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import configuration from './configuration/configuration';
+import { ConfigType } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -26,8 +29,25 @@ import { MailsModule } from './mails/mails.module';
     ExcelModule,
     PdfModule,
     MailsModule,
+    ThrottlerModule.forRootAsync({
+      inject: [configuration.KEY],
+      useFactory: async (configService: ConfigType<typeof configuration>) => ({
+        throttlers: [
+          {
+            ttl: configService.throttler.shortTTL,
+            limit: configService.throttler.shortLIMIT,
+          },
+        ],
+      }),
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: ThrottlerGuard,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
