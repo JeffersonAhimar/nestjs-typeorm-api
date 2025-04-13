@@ -14,6 +14,7 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { RolesGuard } from './guards/roles.guard';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { MailsModule } from 'src/mails/mails.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { GoogleStrategy } from './strategies/google.strategy';
         };
       },
     }),
+    MailsModule,
   ],
   providers: [
     AuthService,

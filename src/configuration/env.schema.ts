@@ -18,6 +18,8 @@ export const envSchema = z.object({
   JWT_EXPIRATION: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   JWT_REFRESH_EXPIRATION: z.string(),
+  JWT_RESET_PASSWORD_SECRET: z.string(),
+  JWT_RESET_PASSWORD_EXPIRATION: z.string(),
   // mail
   MAIL_HOST: z.string(),
   MAIL_USER: z.string(),
@@ -30,5 +32,7 @@ export const envSchema = z.object({
   // rate limiting
   THROTTLER_SHORT_TTL: z.coerce.number(),
   THROTTLER_SHORT_LIMIT: z.coerce.number(),
+  // frontend url
+  FRONTEND_URL: z.string().url('FRONTEND_URL must be a valid URL'),
 });
 export type Env = z.infer<typeof envSchema>;

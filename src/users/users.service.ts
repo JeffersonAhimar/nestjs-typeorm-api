@@ -48,8 +48,8 @@ export class UsersService {
     return user;
   }
 
-  findByEmail(email: string) {
-    const user = this.userRepository.findOne({ where: { email } });
+  async findByEmail(email: string) {
+    const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -90,5 +90,16 @@ export class UsersService {
 
   restore(id: number) {
     return this.userRepository.restore({ id: id });
+  }
+
+  async updatePassword(id: number, newPassword: string) {
+    const user = await this.findOne(id);
+    const newHashedPassword = await argon2.hash(newPassword);
+    await this.userRepository.update(
+      { id: user.id },
+      { password: newHashedPassword },
+    );
+
+    return { message: 'Password updated successfully' };
   }
 }

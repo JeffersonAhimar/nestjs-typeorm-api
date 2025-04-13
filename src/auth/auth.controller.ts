@@ -8,6 +8,7 @@ import {
   Get,
   Res,
   Req,
+  Body,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -18,6 +19,8 @@ import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
 import { AuthService } from './auth.service';
 import { User } from 'src/users/entities/user.entity';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 // JwtAuthGuard: Public -> RolesGuard: Roles -> ...
 @ApiBearerAuth('accessToken')
@@ -52,6 +55,25 @@ export class AuthController {
   async logout(@Request() req) {
     const user = req.user as User;
     return this.authService.logout(user.id);
+  }
+
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('forgot-password')
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    const result = await this.authService.forgotPassword(forgotPasswordDto);
+    return { statusCode: HttpStatus.OK, ...result };
+  }
+
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('reset-password')
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    const result = await this.authService.resetPassword(resetPasswordDto);
+    return {
+      statusCode: HttpStatus.OK,
+      ...result,
+    };
   }
 
   @UseGuards(GoogleAuthGuard)

@@ -35,5 +35,6 @@ import configuration from 'src/configuration/configuration';
   ],
   controllers: [MailsController],
   providers: [MailsService],
+  exports: [MailsService],
 })
 export class MailsModule {}
