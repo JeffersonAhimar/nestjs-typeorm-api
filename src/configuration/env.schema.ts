@@ -34,5 +34,10 @@ export const envSchema = z.object({
   THROTTLER_SHORT_LIMIT: z.coerce.number(),
   // frontend url
   FRONTEND_URL: z.string().url('FRONTEND_URL must be a valid URL'),
+  // AWS
+  AWS_ACCESS_KEY: z.string(),
+  AWS_SECRET_ACCESS_KEY: z.string(),
+  AWS_S3_REGION: z.string(),
+  AWS_S3_BUCKET: z.string(),
 });
 export type Env = z.infer<typeof envSchema>;

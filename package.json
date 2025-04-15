@@ -25,6 +25,8 @@
     "migrations:drop": "npm run typeorm -- schema:drop"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.787.0",
+    "@aws-sdk/s3-request-presigner": "^3.787.0",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",

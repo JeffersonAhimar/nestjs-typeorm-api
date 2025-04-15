@@ -35,5 +35,13 @@ export default registerAs('config', () => {
       shortLIMIT: parseInt(process.env.THROTTLER_SHORT_LIMIT),
     },
     frontendURL: process.env.FRONTEND_URL,
+    aws: {
+      accessKey: process.env.AWS_ACCESS_KEY,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      s3: {
+        region: process.env.AWS_S3_REGION,
+        bucket: process.env.AWS_S3_BUCKET,
+      },
+    },
   };
 });
