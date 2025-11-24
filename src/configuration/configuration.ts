@@ -12,8 +12,8 @@ export default registerAs('config', () => {
       host: process.env.MYSQL_HOST,
     },
     jwt: {
-      secret: process.env.JWT_SECRET,
-      expiration: process.env.JWT_EXPIRATION,
+      accessSecret: process.env.JWT_ACCESS_SECRET,
+      accessExpiration: process.env.JWT_ACCESS_EXPIRATION,
       refreshSecret: process.env.JWT_REFRESH_SECRET,
       refreshExpiration: process.env.JWT_REFRESH_EXPIRATION,
       resetPasswordSecret: process.env.JWT_RESET_PASSWORD_SECRET,

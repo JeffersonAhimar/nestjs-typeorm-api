@@ -27,14 +27,16 @@ export class AuthService {
   async login(user: User) {
     const { accessToken, refreshToken } = await this.generateJwtTokens(user);
     await this.usersService.updateRefreshToken(user.id, refreshToken);
-    return { accessToken: accessToken, refreshToken: refreshToken };
+    const { accessExpiration, refreshExpiration } = this.configService.jwt;
+    return { accessToken, refreshToken, accessExpiration, refreshExpiration };
   }
 
   async refresh(userId: number) {
     const user = await this.usersService.findOne(userId);
     const { accessToken, refreshToken } = await this.generateJwtTokens(user);
     await this.usersService.updateRefreshToken(user.id, refreshToken);
-    return { accessToken: accessToken, refreshToken: refreshToken };
+    const { accessExpiration, refreshExpiration } = this.configService.jwt;
+    return { accessToken, refreshToken, accessExpiration, refreshExpiration };
   }
 
   async logout(userId: number) {

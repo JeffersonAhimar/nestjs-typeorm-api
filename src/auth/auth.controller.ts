@@ -1,3 +1,4 @@
+import * as ms from 'ms';
 import {
   Controller,
   Request,
@@ -21,6 +22,8 @@ import { User } from 'src/users/entities/user.entity';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { Response } from 'express';
+import { JwtRefreshAuthCookieGuard } from './guards/jwt-refresh-auth-cookie.guard';
 
 // JwtAuthGuard: Public -> RolesGuard: Roles -> ...
 @ApiBearerAuth('accessToken')
@@ -47,6 +50,72 @@ export class AuthController {
   async refresh(@Request() req) {
     const user = req.user as User;
     return this.authService.refresh(user.id);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Public()
+  @Post('cookie/login')
+  @HttpCode(HttpStatus.OK)
+  async cookieLogin(@Request() req, @Res({ passthrough: true }) res: Response) {
+    const user = req.user as User;
+    const { accessToken, refreshToken, accessExpiration, refreshExpiration } =
+      await this.authService.login(user);
+
+    const accessMaxAge = ms(accessExpiration);
+    const refreshMaxAge = ms(refreshExpiration); // 7d -> miliseconds
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+      maxAge: accessMaxAge,
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+      maxAge: refreshMaxAge, // 7 * 24 * 60 * 60 * 1000
+    });
+
+    return { message: 'Logged in successfully' };
+  }
+
+  @UseGuards(JwtRefreshAuthCookieGuard)
+  @Public()
+  @Post('cookie/refresh')
+  @HttpCode(HttpStatus.OK)
+  async cookieRefresh(
+    @Request() req,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const user = req.user as User;
+    const { accessToken, refreshToken, accessExpiration, refreshExpiration } =
+      await this.authService.refresh(user.id);
+
+    const accessMaxAge = ms(accessExpiration);
+    const refreshMaxAge = ms(refreshExpiration); // 7d -> miliseconds
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+      maxAge: accessMaxAge,
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      // path: '/auth/cookie/refresh', // limit cookie to this path only
+      path: '/',
+      maxAge: refreshMaxAge, // 7 * 24 * 60 * 60 * 1000
+    });
+
+    return { message: 'Tokens refreshed successfully' };
   }
 
   // JwtAuthGuard: Public -> RolesGuard: Roles
@@ -85,7 +154,7 @@ export class AuthController {
   @Public()
   @Get('google/callback')
   async googleCallback(@Req() req, @Res() res) {
-    const response = await this.authService.login(req.user);
-    res.redirect(`http://localhost:5173?token=${response.accessToken}`);
+    const { accessToken } = await this.authService.login(req.user);
+    res.redirect(`http://localhost:5173?token=${accessToken}`);
   }
 }

@@ -15,6 +15,9 @@ import { UsersModule } from 'src/users/users.module';
 import { RolesGuard } from './guards/roles.guard';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { MailsModule } from 'src/mails/mails.module';
+import { JwtRefreshCookieStrategy } from './strategies/jwt-refresh-cookie.strategy';
+import { JwtCookieStrategy } from './strategies/jwt-cookie.strategy';
+import { JwtAuthCookieGuard } from './guards/jwt-auth-cookie.guard';
 
 @Module({
   imports: [
@@ -25,9 +28,9 @@ import { MailsModule } from 'src/mails/mails.module';
       inject: [configuration.KEY],
       useFactory: (configService: ConfigType<typeof configuration>) => {
         return {
-          secret: configService.jwt.secret,
+          secret: configService.jwt.accessSecret,
           signOptions: {
-            expiresIn: configService.jwt.expiration, // 30 (seconds) - 1m (minutes) - 1h (hours) - 1d (days)
+            expiresIn: configService.jwt.accessExpiration, // 30 (seconds) - 1m (minutes) - 1h (hours) - 1d (days)
           },
         };
       },
@@ -42,6 +45,9 @@ import { MailsModule } from 'src/mails/mails.module';
     JwtRefreshStrategy,
     RolesGuard,
     GoogleStrategy,
+    JwtCookieStrategy,
+    JwtAuthCookieGuard,
+    JwtRefreshCookieStrategy,
   ],
   controllers: [AuthController],
   exports: [JwtAuthGuard, RolesGuard],

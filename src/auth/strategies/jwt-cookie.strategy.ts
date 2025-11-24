@@ -6,14 +6,23 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import configuration from 'src/configuration/configuration';
 import { PayloadToken } from '../interfaces/token.interface';
+import { Request } from 'express';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class JwtCookieStrategy extends PassportStrategy(
+  Strategy,
+  'jwt-cookie',
+) {
   constructor(
     @Inject(configuration.KEY) configService: ConfigType<typeof configuration>,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req: Request) => {
+          // console.log('Cookies:', req.cookies);
+          return req?.cookies?.accessToken || null;
+        },
+      ]),
       ignoreExpiration: false,
       secretOrKey: configService.jwt.accessSecret,
     });

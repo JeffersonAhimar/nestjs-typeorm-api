@@ -14,8 +14,8 @@ export const envSchema = z.object({
   MYSQL_PORT: z.coerce.number(),
   MYSQL_HOST: z.string(),
   // jwt tokens
-  JWT_SECRET: z.string(),
-  JWT_EXPIRATION: z.string(),
+  JWT_ACCESS_SECRET: z.string(),
+  JWT_ACCESS_EXPIRATION: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   JWT_REFRESH_EXPIRATION: z.string(),
   JWT_RESET_PASSWORD_SECRET: z.string(),
