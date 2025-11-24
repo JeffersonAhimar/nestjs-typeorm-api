@@ -10,6 +10,7 @@ import {
   Res,
   Req,
   Body,
+  Inject,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -24,13 +25,19 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { Response } from 'express';
 import { JwtRefreshAuthCookieGuard } from './guards/jwt-refresh-auth-cookie.guard';
+import configuration from 'src/configuration/configuration';
+import { ConfigType } from '@nestjs/config';
 
 // JwtAuthGuard: Public -> RolesGuard: Roles -> ...
 @ApiBearerAuth('accessToken')
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    @Inject(configuration.KEY)
+    private configService: ConfigType<typeof configuration>,
+  ) {}
 
   // JwtAuthGuard: Public -> RolesGuard: Roles -> LocalAuthGuard
   @UseGuards(LocalAuthGuard)
@@ -154,7 +161,30 @@ export class AuthController {
   @Public()
   @Get('google/callback')
   async googleCallback(@Req() req, @Res() res) {
-    const { accessToken } = await this.authService.login(req.user);
-    res.redirect(`http://localhost:5173?token=${accessToken}`);
+    const { accessToken, refreshToken, accessExpiration, refreshExpiration } =
+      await this.authService.login(req.user);
+    // res.redirect(`${this.configService.frontendURL}?token=${accessToken}`); // not secure
+
+    const accessMaxAge = ms(accessExpiration);
+    const refreshMaxAge = ms(refreshExpiration); // 7d -> miliseconds
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+      maxAge: accessMaxAge,
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+      maxAge: refreshMaxAge, // 7 * 24 * 60 * 60 * 1000
+    });
+
+    const frontendUrl = this.configService.frontendURL;
+    res.redirect(frontendUrl);
   }
 }

@@ -15,6 +15,7 @@ import { Mysql1062ExceptionFilter } from './common/filters/mysql-1062-exception.
 import configuration from './configuration/configuration';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { JwtAuthCookieGuard } from './auth/guards/jwt-auth-cookie.guard';
+import { ConfigType } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -71,9 +72,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document);
 
+  // get config service
+  const configService = app.get<ConfigType<typeof configuration>>(
+    configuration.KEY,
+  );
+
   // enable CORS to allow requests from the frontend
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: configService.frontendURL,
     credentials: true, // allows cookies and other credentials to be sent in requests
   });
 
@@ -81,7 +87,6 @@ async function bootstrap() {
   app.use(cookieParser());
 
   // app port
-  const configService = app.get(configuration.KEY);
   await app.listen(configService.port);
 }
 bootstrap();
