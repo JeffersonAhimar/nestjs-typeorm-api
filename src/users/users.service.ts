@@ -56,6 +56,10 @@ export class UsersService {
     return user;
   }
 
+  async findOneByEmailForAuth(email: string) {
+    return await this.userRepository.findOne({ where: { email } });
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
     const finalUpdateUserDto = { ...updateUserDto };

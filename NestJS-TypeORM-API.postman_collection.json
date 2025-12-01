@@ -1,0 +1,1493 @@
+{
+	"info": {
+		"_postman_id": "3887a2cd-d22d-4526-b29a-6a73bada5b22",
+		"name": "NestJS-TypeORM-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34854256"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jefferson Ahimar\",\r\n    \"email\": \"jefferson@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"identityNumber\": \"73223649\",\r\n    \"dateOfBirth\": \"1999-11-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jefferson\"\r\n    // \"email\": \"jefferson@gmail.com\",\r\n    // \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "soft-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/softRemove/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"softRemove",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?withDeleted=false",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "withDeleted",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "restore",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/1/restore",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"restore"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "roles",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"newRole\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/roles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/roles/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all v2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v2/roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/roles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"title\",\r\n    \"content\": \"content\",\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"title1\",\r\n    \"content\": \"content1\",\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts?skip=4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "4"
+								},
+								{
+									"key": "take",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one with details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/1/details",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"1",
+								"details"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "users_roles",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"roleId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users-roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users-roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"roleId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users-roles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users-roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users-roles/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users-roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users-roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users-roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users-roles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users-roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one with details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users-roles/1/details",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users-roles",
+								"1",
+								"details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jefferson@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google-login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/google/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"google",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiamVmZmVyc29uQGdtYWlsLmNvbSIsImlhdCI6MTc0NjE3MDcwOCwiZXhwIjoxNzQ2Nzc1NTA4fQ._x_tVOX9It2XE2DRXtQxvMd-SJQvNatY77pfiILzFQ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamVmZmVyc29uYWhpbWFyQGdtYWlsLmNvbSIsImlhdCI6MTc0Mjk0NDE3MywiZXhwIjoxNzQzNTQ4OTczfQ.uKZpo1ba7R2e1DsUzT95GRDXmea6SvKuOrW9P2iUPCI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"jefferson@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgot-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamVmZmVyc29uYWhpbWFyQGdtYWlsLmNvbSIsImlhdCI6MTc0Mjk0NDE3MywiZXhwIjoxNzQzNTQ4OTczfQ.uKZpo1ba7R2e1DsUzT95GRDXmea6SvKuOrW9P2iUPCI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamVmZmVyc29uQGdtYWlsLmNvbSIsImlhdCI6MTc0NDUxNjgwOSwiZXhwIjoxNzQ0NTE2ODY5fQ.e66Nl1-i_s1aWNKtlYcPmIWq8gFcZRYPdFq_-oXqh_4\",\r\n    \"newPassword\": \"654321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/reset-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cookie-login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jeffersonahimar@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/cookie/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"cookie",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cookie-logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jeffersonahimar@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/cookie/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"cookie",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cookie-refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/cookie/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"cookie",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let result = pm.response.json();\r",
+									"\r",
+									"if (result && result.accessToken){\r",
+									"    // nombre de la variable de entorno\r",
+									"    let authorization='authorization';\r",
+									"    let token = result.accessToken;\r",
+									"    pm.environment.set(authorization, token);\r",
+									"}\r",
+									"else{\r",
+									"    console.log('No se actualizo token')\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jefferson@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "upload-image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/files/upload-image",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"upload-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload-to-s3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/jeffe/Documents/PRUEBA.txt"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/files/upload-to-s3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"upload-to-s3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download-from-s3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/files/download-from-s3/uploads/PRUEBA.txt",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"download-from-s3",
+								"uploads",
+								"PRUEBA.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-from-s3",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/files/delete-from-s3/uploads",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"delete-from-s3",
+								"uploads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload-document",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/files/upload-document",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"upload-document"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "excel",
+			"item": [
+				{
+					"name": "bulk-upload-users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/excel/bulk-upload-users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"excel",
+								"bulk-upload-users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pdf",
+			"item": [
+				{
+					"name": "generate-pdf-download",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/pdf/generate-pdf-download?title=Naruto",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pdf",
+								"generate-pdf-download"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Naruto"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate-pdf-file",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/pdf/generate-pdf-file?title=Naruto",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pdf",
+								"generate-pdf-file"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Naruto"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mail",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailTo\": \"jefferson@gmail.com\",\r\n    \"nameTo\": \"Jefferson Ahimar\",\r\n    \"url\": \"https://www.facebook.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/mails",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authorization}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "authorization",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

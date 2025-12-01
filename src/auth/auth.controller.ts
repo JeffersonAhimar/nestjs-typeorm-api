@@ -27,6 +27,7 @@ import { Response } from 'express';
 import { JwtRefreshAuthCookieGuard } from './guards/jwt-refresh-auth-cookie.guard';
 import configuration from 'src/configuration/configuration';
 import { ConfigType } from '@nestjs/config';
+import { UsersService } from 'src/users/users.service';
 
 // JwtAuthGuard: Public -> RolesGuard: Roles -> ...
 @ApiBearerAuth('accessToken')
@@ -37,6 +38,7 @@ export class AuthController {
     private authService: AuthService,
     @Inject(configuration.KEY)
     private configService: ConfigType<typeof configuration>,
+    private usersService: UsersService,
   ) {}
 
   // JwtAuthGuard: Public -> RolesGuard: Roles -> LocalAuthGuard
@@ -186,5 +188,34 @@ export class AuthController {
 
     const frontendUrl = this.configService.frontendURL;
     res.redirect(frontendUrl);
+  }
+
+  @Get('me')
+  async getProfile(@Req() req) {
+    const userId = req.user?.sub;
+    const user = await this.usersService.findOne(userId);
+    const { id, name, email, avatarUrl } = user;
+    return { id, name, email, avatarUrl };
+  }
+
+  @Public()
+  @Post('cookie/logout')
+  @HttpCode(HttpStatus.OK)
+  logoutCookie(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+    });
+
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: 'strict',
+      path: '/',
+    });
+
+    return { message: 'Logged out successfully' };
   }
 }
