@@ -30,6 +30,7 @@ export class PostsService {
     return this.postRepository.find({
       skip: paginationDto.skip,
       take: paginationDto.take,
+      relations: ['user'],
     });
   }
 
