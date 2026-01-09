@@ -16,6 +16,7 @@ class QueryError {
 
 @Catch(QueryError)
 // change # error
+// Message: Duplicate entry '%s' for key %d
 export class Mysql1062ExceptionFilter implements ExceptionFilter {
   catch(exception: QueryFailedError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();

@@ -10,8 +10,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 // import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
-import { Mysql1451ExceptionFilter } from './common/filters/mysql-1451-exception.filter';
-import { Mysql1062ExceptionFilter } from './common/filters/mysql-1062-exception.filter';
+import { MysqlGenericExceptionFilter } from './common/filters/mysql-generic-exception.filter';
 import configuration from './configuration/configuration';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { JwtAuthCookieGuard } from './auth/guards/jwt-auth-cookie.guard';
@@ -45,8 +44,9 @@ async function bootstrap() {
   // global filters
   // app.useGlobalFilters(new TypeormExceptionFilter());
   app.useGlobalFilters(
-    new Mysql1451ExceptionFilter(),
-    new Mysql1062ExceptionFilter(),
+    // new Mysql1451ExceptionFilter(),
+    // new Mysql1062ExceptionFilter(),
+    new MysqlGenericExceptionFilter(),
   );
 
   // versioning /v1 /v2 ...
